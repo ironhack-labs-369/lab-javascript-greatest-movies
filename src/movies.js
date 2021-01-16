@@ -63,7 +63,6 @@ function dramaMoviesRate(arr) {
         return counter;
     }
     const avgRateDramas = Number((sumRateDramas / counter).toFixed(2));
-    console.log('avgRateDramas', avgRateDramas);
     return avgRateDramas;
 }
 
@@ -103,17 +102,40 @@ orderAlphabetically(data);
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(arr) {
-    const turnedToMinutes = arr.map((movie) => {
+    const turnedToMinutes = [...arr].map((movie) => {
+        let duration = 0;
+
+        if (movie.duration.includes('h') && !movie.duration.includes('min')) {
+            duration = Number(movie.duration.replace('h', '') * 60);
+        } else if (
+            !movie.duration.includes('h') &&
+            movie.duration.includes('min')
+        ) {
+            duration = Number(movie.duration.replace('min', ''));
+        } else {
+            duration =
+                Number(movie.duration.split(' ')[0].replace('h', '') * 60) +
+                Number(movie.duration.split(' ')[1].replace('min', ''));
+        }
+
         return {
             ...movie,
-            duration:
-                Number(movie.duration.split(' ')[0].replace('h', '') * 60) +
-                Number(movie.duration.split(' ')[1].replace('min', '')),
+            duration,
         };
     });
-    console.log('turned', turnedToMinutes);
     return turnedToMinutes;
 }
 turnHoursToMinutes(data);
 
 // BONUS - Iteration 8: Best yearly rate average - Best yearly rate average
+function bestYearAvg(arr) {
+    let sumRate = 0;
+    let counter = 0;
+    const best = [...arr].map((movie) => {
+        sum += movie.rate;
+        counter++;
+        return;
+    });
+}
+
+bestYearAvg(data);
